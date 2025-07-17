@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="2" time="0.467" timestamp="2025-07-17T19:09:50.375253" hostname="Baskar"><testcase classname="tests.test_assert_python" name="test_timesatamps_sorted" time="0.061" /><testcase classname="tests.test_assert_python" name="test_goal_streak" time="0.011"><failure message="AssertionError: goal streak &gt;2 dedected&#10;assert not True&#10; +  where True = &lt;bound method Series.any of 0       False\n1       False\n2       False\n3       False\n4       False\n        ...  \n9995    False\n9996    False\n9997    False\n9998    False\n9999    False\nName: goal_streak, Length: 10000, dtype: bool&gt;()&#10; +    where &lt;bound method Series.any of 0       False\n1       False\n2       False\n3       False\n4       False\n        ...  \n9995    False\n9996    False\n9997    False\n9998    False\n9999    False\nName: goal_streak, Length: 10000, dtype: bool&gt; = 0       NaN\n1       NaN\n2       NaN\n3       NaN\n4       NaN\n       ... \n9995    1.0\n9996    1.0\n9997    1.0\n9998    0.0\n9999    1.0\nName: goal_streak, Length: 10000, dtype: float64 &gt; 2.any">event_df =       event_id  match_id           timestamp  ... player_id    x_coord    y_coord
+0            1      1003 2025-07-01 ...  20.396668
+9999     10000      1003 2025-07-01 02:46:39  ...       504  63.324242  17.147354
+
+[10000 rows x 7 columns]
+
+    def test_goal_streak(event_df):
+        df = event_df.copy()
+        df["is_goal"] = (df["event_type"]=="goal").astype(int)
+        df["goal_streak"] = df.groupby("player_id")["is_goal"].rolling(3).sum().reset_index(level=0, drop = True)
+&gt;       assert not (df["goal_streak"]&gt;2).any(), "goal streak &gt;2 dedected"
+E       AssertionError: goal streak &gt;2 dedected
+E       assert not True
+E        +  where True = &lt;bound method Series.any of 0       False\n1       False\n2       False\n3       False\n4       False\n        ...  \n9995    False\n9996    False\n9997    False\n9998    False\n9999    False\nName: goal_streak, Length: 10000, dtype: bool&gt;()
+E        +    where &lt;bound method Series.any of 0       False\n1       False\n2       False\n3       False\n4       False\n        ...  \n9995    False\n9996    False\n9997    False\n9998    False\n9999    False\nName: goal_streak, Length: 10000, dtype: bool&gt; = 0       NaN\n1       NaN\n2       NaN\n3       NaN\n4       NaN\n       ... \n9995    1.0\n9996    1.0\n9997    1.0\n9998    0.0\n9999    1.0\nName: goal_streak, Length: 10000, dtype: float64 &gt; 2.any
+
+Tests\test_assert_python.py:11: AssertionError</failure></testcase></testsuite></testsuites>
