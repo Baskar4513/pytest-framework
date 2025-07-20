@@ -26,7 +26,7 @@ jobs:
 
       - name: Run tests with Pytest
         run: |
-          pytest tests/test_assert_python.py --junitxml=report.xml
+          pytest Tests/test_assert_python.py --junitxml=report.xml
 
       - name: Upload test report (optional)
         uses: actions/upload-artifact@v4
