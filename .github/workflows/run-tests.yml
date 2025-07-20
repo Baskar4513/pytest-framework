@@ -29,7 +29,7 @@ jobs:
           pytest tests/test_assert_python.py --junitxml=report.xml
 
       - name: Upload test report (optional)
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: test-report
           path: report.xml
